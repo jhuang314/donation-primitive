@@ -33,8 +33,8 @@ contract BettingMarket is ReentrancyGuard, Ownable, Pausable {
         mapping(address => Bet) betsB;
     }
 
-    mapping(uint256 => Event) public events;
     uint256 public currentEventId;
+    Event public currentEvent;
 
     event EventCreated(uint256 indexed eventId, uint256 startTime);
     event BetPlaced(uint256 indexed eventId, address indexed bettor, bool outcome, uint256 amount);
@@ -42,30 +42,33 @@ contract BettingMarket is ReentrancyGuard, Ownable, Pausable {
     event Payout(uint256 indexed eventId, address indexed bettor, uint256 amount);
     event RbtcToUsdRateUpdated(uint256 newRate);
 
-    constructor(uint256 _initialRbtcToUsdRate) Ownable(msg.sender) {
-        require(_initialRbtcToUsdRate > 0, "Invalid initial rate");
-        rbtcToUsdRate = _initialRbtcToUsdRate;
-        createNewEvent();
+//constructor(uint256 _initialRbtcToUsdRate) Ownable(msg.sender) {
+    constructor() Ownable(msg.sender) {
+        // require(_initialRbtcToUsdRate > 0, "Invalid initial rate");
+        rbtcToUsdRate = 60000000000000000000000;
+        // rbtcToUsdRate = _initialRbtcToUsdRate;
+        currentEvent.resolved = true;
     }
 
-    function createNewEvent() public onlyOwner {
-        require(currentEventId == 0 || events[currentEventId].resolved, "Current event not resolved");
+    function createNewEvent() external onlyOwner {
         currentEventId++;
-        events[currentEventId].id = currentEventId;
-        events[currentEventId].startTime = block.timestamp;
+        require(currentEvent.resolved, "Current event not resolved");
+
+        currentEvent.id = currentEventId;
+        currentEvent.startTime = block.timestamp;
+        currentEvent.resolved = false;
+                
         emit EventCreated(currentEventId, block.timestamp);
     }
 
     function placeBet(bool outcome) external payable nonReentrant whenNotPaused {
-        require(currentEventId > 0, "No active event");
-        require(block.timestamp < events[currentEventId].startTime + BETTING_DURATION, "Betting period has ended");
+        require(currentEvent.resolved == false, "No active event");
+        require(block.timestamp < currentEvent.startTime + BETTING_DURATION, "Betting period has ended");
         require(msg.value > 0, "Bet amount must be greater than 0");
         
-        uint256 betAmountUsd = (msg.value * rbtcToUsdRate) / 1e18;
-        require(betAmountUsd == BET_AMOUNT_1 || betAmountUsd == BET_AMOUNT_10 || betAmountUsd == BET_AMOUNT_100, "Invalid bet amount");
+        //uint256 betAmountUsd = (msg.value * rbtcToUsdRate) / 1e18;
+        //require(betAmountUsd == BET_AMOUNT_1 || betAmountUsd == BET_AMOUNT_10 || betAmountUsd == BET_AMOUNT_100, "Invalid bet amount");
 
-        Event storage currentEvent = events[currentEventId];
-        
         if (outcome) {
             currentEvent.betsA[msg.sender].amount += msg.value;
             currentEvent.totalBetsA += msg.value;
@@ -79,7 +82,6 @@ contract BettingMarket is ReentrancyGuard, Ownable, Pausable {
 
     function resolveEvent() external {
         require(currentEventId > 0, "No active event");
-        Event storage currentEvent = events[currentEventId];
         require(block.timestamp >= currentEvent.startTime + BETTING_DURATION, "Betting period not yet ended");
         require(!currentEvent.resolved, "Event already resolved");
 
@@ -89,12 +91,10 @@ contract BettingMarket is ReentrancyGuard, Ownable, Pausable {
         currentEvent.resolved = true;
 
         emit EventResolved(currentEventId, currentEvent.result);
-        createNewEvent();
     }
 
-    function claimWinnings(uint256 eventId) external nonReentrant {
-        require(eventId > 0 && eventId <= currentEventId, "Invalid event ID");
-        Event storage bettingEvent = events[eventId];
+    function claimWinnings() external nonReentrant {
+        Event storage bettingEvent = currentEvent;
         require(bettingEvent.resolved, "Event not resolved");
         
         Bet storage userBet = bettingEvent.result ? bettingEvent.betsA[msg.sender] : bettingEvent.betsB[msg.sender];
@@ -114,18 +114,17 @@ contract BettingMarket is ReentrancyGuard, Ownable, Pausable {
         (bool success, ) = msg.sender.call{value: winnings}("");
         require(success, "Transfer failed");
 
-        emit Payout(eventId, msg.sender, winnings);
+        emit Payout(currentEventId, msg.sender, winnings);
     }
 
-    function getEventDetails(uint256 eventId) external view returns (
+    function getEventDetails() external view returns (
         bool resolved,
         bool result,
         uint256 totalBetsA,
         uint256 totalBetsB,
         uint256 startTime
     ) {
-        require(eventId > 0 && eventId <= currentEventId, "Invalid event ID");
-        Event storage bettingEvent = events[eventId];
+        Event storage bettingEvent = currentEvent;
         return (
             bettingEvent.resolved,
             bettingEvent.result,
@@ -135,9 +134,8 @@ contract BettingMarket is ReentrancyGuard, Ownable, Pausable {
         );
     }
 
-    function getUserBet(uint256 eventId, address user, bool outcome) external view returns (uint256 amount, bool claimed) {
-        require(eventId > 0 && eventId <= currentEventId, "Invalid event ID");
-        Event storage bettingEvent = events[eventId];
+    function getUserBet(address user, bool outcome) external view returns (uint256 amount, bool claimed) {
+        Event storage bettingEvent = currentEvent;
         Bet storage bet = outcome ? bettingEvent.betsA[user] : bettingEvent.betsB[user];
         return (bet.amount, bet.claimed);
     }

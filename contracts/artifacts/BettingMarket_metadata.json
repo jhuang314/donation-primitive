@@ -6,13 +6,7 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_initialRbtcToUsdRate",
-						"type": "uint256"
-					}
-				],
+				"inputs": [],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -243,13 +237,7 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "eventId",
-						"type": "uint256"
-					}
-				],
+				"inputs": [],
 				"name": "claimWinnings",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -264,26 +252,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "currentEventId",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "events",
+				"name": "currentEvent",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -320,13 +289,20 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
+				"inputs": [],
+				"name": "currentEventId",
+				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "eventId",
+						"name": "",
 						"type": "uint256"
 					}
 				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getEventDetails",
 				"outputs": [
 					{
@@ -360,11 +336,6 @@
 			},
 			{
 				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "eventId",
-						"type": "uint256"
-					},
 					{
 						"internalType": "address",
 						"name": "user",
@@ -596,11 +567,11 @@
 			]
 		},
 		"contracts/bet.sol": {
-			"keccak256": "0x1023cd6add72e81a392e32d3327c5b939ee3388ea4b3b6d430451a4fc26661a6",
+			"keccak256": "0x1aafbeba733908b4a98bcdf1a4df663b50f6230aca7347bc7809d98ac5bd9635",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://630b74fcb3cda8a7324bd3c9fbaebe06ad0fbd7f273bd752e02e40f7753bff83",
-				"dweb:/ipfs/Qmes3FNYuuwQbURtSLcBLmPdV4NGP39b3Po4xB3kYD4dPo"
+				"bzz-raw://069f5bb2ff1d723afc0da8d661e1abe73bd85f91eb977b232b729c0c29aef98e",
+				"dweb:/ipfs/QmPh4SFpptMBvpv9UyAEHhv924S5u9gGmrV4uerkSPS3gB"
 			]
 		}
 	},
