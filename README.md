@@ -10,8 +10,8 @@ Our Solidity smart contract was seamlessly deployed to Rootstock due to its EVM 
 
 ### The team
 
-jhuang314 - Fullstack Software Engineer (Web2)
-zmuntzenberger1 - Self taught Solidity dev with Graphics background
+ - jhuang314 - Fullstack Software Engineer (Web2)
+ - zmuntzenberger1 - Self taught Solidity dev with Graphics background
 
 
 
