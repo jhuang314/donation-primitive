@@ -6,12 +6,14 @@ This project aims to create a novel charity donation platform, inspired by Polym
 
 ### Rootstock Integration
 
-We created the smart contract in Solidity. Because Rootstock is EVM compatible, deploying the smart contract to Rootstock was simple. We utilized Remix to develop the smart contract, which made it easy to test the contract within its own Remix VM. Afterwards, we used MetaMask to inject the provider, and deployed to Rootstock.
-
+Our Solidity smart contract was seamlessly deployed to Rootstock due to its EVM compatibility. Using Remix for development and testing, we efficiently iterated and verified its functionality. Finally, we deployed to Rootstock through MetaMask, leveraging its provider integration
 
 ### The team
 
-TODO: add team backgrounds.
+jhuang314 - Fullstack Software Engineer (Web2)
+zmuntzenberger1 - Self taught Solidity dev with Graphics background
+
+
 
 
 ### Testing the integration.
