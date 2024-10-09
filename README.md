@@ -24,7 +24,7 @@ Use Remix!
 1. compile the bet_flattened.sol
 1. go to "Deploy & Run" in Remix, select MetaMask injected provider.
 1. deploy the bet_flattened.sol contract
-1. Either use Rootstock explorer or Remix to interact with the contract.
+1. either use Rootstock explorer or Remix to interact with the contract.
 
 
 ### Feedback about the experience
@@ -33,4 +33,6 @@ The experience of integrating our project with Rootstock was truly exceptional. 
 ### demo
 
 We're excited to share that our demo is now live! You can test it out and experience the platform firsthand. Stay tuned for the integration of production oracle data, coming soon. Thanks for your interest!
+
+[Our smart contract deployed to Rootstock testnet](https://explorer.testnet.rootstock.io/address/0x7f3a5c4e4a33dbbb569b72094da4c40e64129523)
 
