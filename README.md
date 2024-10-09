@@ -29,9 +29,9 @@ Use Remix!
 
 
 ### Feedback about the experience
-TODO
+The experience of integrating our project with Rootstock was truly exceptional. The seamless deployment process and the ease of use of Remix for development and testing made it a pleasure to work with. The MetaMask integration also provided a smooth and secure way to interact with the contract. Overall, it was a great experience that allowed us to efficiently test and verify the functionality of our project.
 
 ### demo
 
-TODO
+We're excited to share that our demo is now live! You can test it out and experience the platform firsthand. Stay tuned for the integration of production oracle data, coming soon. Thanks for your interest!
 
