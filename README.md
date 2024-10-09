@@ -26,6 +26,10 @@ Use Remix!
 1. deploy the bet_flattened.sol contract
 1. either use Rootstock explorer or Remix to interact with the contract.
 
+### Frontend
+
+[The frontend that utilizes Farcaster frames is in a separate Git repo](https://github.com/fourcolors/climabets)
+
 
 ### Feedback about the experience
 The experience of integrating our project with Rootstock was truly exceptional. The seamless deployment process and the ease of use of Remix for development and testing made it a pleasure to work with. The MetaMask integration also provided a smooth and secure way to interact with the contract. Overall, it was a great experience that allowed us to efficiently test and verify the functionality of our project.
